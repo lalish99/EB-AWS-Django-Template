@@ -13,4 +13,4 @@ __pycache__/
 !.elasticbeanstalk/*.global.yml
 
 # Database files
-.sqlite3
+*.sqlite3
