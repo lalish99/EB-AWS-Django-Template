@@ -136,7 +136,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 # Static files configured for remote and local support
 STATIC_URL = '/static/'
 # Validates if the Database name is configured if it's
