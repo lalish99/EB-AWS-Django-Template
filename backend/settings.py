@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
+    # 'django_generate_secret_key',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
