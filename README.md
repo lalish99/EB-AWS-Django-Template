@@ -15,7 +15,7 @@ For more information read the [documentation](https://docs.djangoproject.com/en/
 *It is already inside `requirements.txt`.*
 **First you'll need to uncomment the line `'django_generate_secret_key',` inside `INSTALLED_APPS` in `settings.py`.**
 Then you only need to use: 
-```python
+```
 $ ./manage.py generate_secret_key
 ```
 This will write a randomly generated `SECRET_KEY` to a new file called `secretkey.txt`, for more options and information check their [github](https://github.com/MickaelBergem/django-generate-secret-key).
