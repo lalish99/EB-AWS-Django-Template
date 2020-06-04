@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+# from django.utils.translation import gettext_lazy as _ # Lazy translations
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,12 +50,13 @@ CORS_ALLOW_HEADERS = [
 LANGUAGE_CODE = 'en-us'  # or other appropriate code
 USE_I18N = True
 USE_L10N = True
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
-LANGUAGES =[ 
-    ('en', _('English')),
-    ('de', _('German')),
-    ('es', _('Spanish')),
-]
+# Support for multiple languages
+# LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+# LANGUAGES =[ 
+#     ('en', _('English')),
+#     ('de', _('German')),
+#     ('es', _('Spanish')),
+# ]
 
 # Time zone
 TIME_ZONE = 'UTC'
