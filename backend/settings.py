@@ -29,12 +29,49 @@ DEBUG = True
 # Configure your allowed hosts
 ALLOWED_HOSTS = []
 
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+# ===
+# Internationalization
+# ===
+# Language
+LANGUAGE_CODE = 'en-us'  # or other appropriate code
+USE_I18N = True
+USE_L10N = True
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LANGUAGES =[ 
+    ('en', _('English')),
+    ('de', _('German')),
+    ('es', _('Spanish')),
+]
+
+# Time zone
+TIME_ZONE = 'UTC'
+USE_TZ = True
 
 # Application definition
-
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
-    # 'django_generate_secret_key',
+    # 'django_generate_secret_key', # Secret key generation
+    'django_extensions',
+    'rest_framework',
+    # 'corsheaders', # Cors headers handling
+    'storages',
+    # 'admin_interface', # Admin console customization
+    # 'colorfield', # Admin interface color picker for admin_interface app
+    # 'django.contrib.admindocs', # Django admin documentation
+    # 'drf_yasg', # Django rest configuration
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +83,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware', # Support for localization
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -124,28 +162,32 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
 
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 # Static files configured for remote and local support
-STATIC_URL = '/static/'
-# Validates if the Database name is configured if it's
-# configured it's assumed that it's been deployed and on production
 if 'RDS_DB_NAME' in os.environ:
-    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+    # AWS S3 bucket configuraton
+    AWS_ACCESS_KEY_ID = os.environ['S3_ACCESS_KEY_ID'] # 'AKIAIT2Z5TDYPX3ARJBA'
+    AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET_ACCESS_KEY'] # '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'
+    AWS_STORAGE_BUCKET_NAME = os.environ['S3_STORAGE_BUCKET_NAME'] # 'sibtc-static'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    DEFAULT_FILE_STORAGE = 'backend.s3utils.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'backend.s3utils.StaticRootS3BotoStorage'
 else:
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
     STATIC_ROOT = ''
+    MEDIA_ROOT = ''
     STATICFILES_DIRS =(
         os.path.join(SETTINGS_PATH, 'static'),
     )
