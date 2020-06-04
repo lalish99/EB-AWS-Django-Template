@@ -52,7 +52,7 @@ USE_I18N = True
 USE_L10N = True
 # Support for multiple languages
 # LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
-# LANGUAGES =[ 
+# LANGUAGES =[
 #     ('en', _('English')),
 #     ('de', _('German')),
 #     ('es', _('Spanish')),
@@ -173,9 +173,9 @@ AUTH_PASSWORD_VALIDATORS = [
 if 'RDS_DB_NAME' in os.environ:
 
     # AWS S3 bucket configuraton
-    AWS_ACCESS_KEY_ID = os.environ['S3_ACCESS_KEY_ID'] # 'AKIAIT2Z5TDYPX3ARJBA'
-    AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET_ACCESS_KEY'] # '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'
-    AWS_STORAGE_BUCKET_NAME = os.environ['S3_STORAGE_BUCKET_NAME'] # 'sibtc-static'
+    AWS_ACCESS_KEY_ID = os.environ['S3_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['S3_STORAGE_BUCKET_NAME']
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
